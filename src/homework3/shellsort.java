@@ -6,27 +6,32 @@ public class shellsort {
 	{
 		array2=array;
 		int h=1;
-		while(h<array2.length)
+		int index[]=new int[]{1, 9, 34, 182, 836, 4025, 19001, 90358, 428481, 2034035, 9651787, 45806244, 217378076, 1031612713};
+		for(int i=0;i<13;i++)
 		{
-			h=h*3+1;
+			if(array2.length/index[i]>=2&&array2.length/index[i+1]<2){
+				h=i;
+				break;
+			}
 		}
-		while(h>0)
+		while(h>=0)
 		{
-			for(int i=h;i<array2.length;i+=h)
+			int time=index[h];
+			for(int i=time;i<array2.length;i++)
 			{
-				if(array2[i]<array2[i-h])
+				if(array2[i]<array2[i-time])
 				{
 					long temp=array2[i];
-					int j=i-h;
+					int j=i-time;
 					while(j>=0&&array2[j]>temp)
 					{
-						array2[j+h]=array2[j];
-						j=j-h;
+						array2[j+time]=array2[j];
+						j=j-time;
 					}
-					array2[j+h]=temp;
+					array2[j+time]=temp;
 				}
 			}
-			h=(h-1)/3;
+			h--;
 		}
 		return array2;
 	}

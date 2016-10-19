@@ -12,25 +12,42 @@ public class quicksort {
 	{
 		num1++;
 		int tmp=(int)(Math.random()*(high-low+1))+low;
-		long tt=array2[low];
-		array2[low]=array2[tmp];
+		long tt=array2[high];
+		array2[high]=array2[tmp];
 		array2[tmp]=tt;
-		long start=array2[low];
-		while(low<high)
+		long start=array2[high];
+		int j=low,i=low-1;
+		while(j<high)
 		{
-			while(low<high&&array2[high]>=start) high--;
-			array2[low]=array2[high];
-			while(low<high&&array2[low]<=start) low++;
-			array2[high]=array2[low];
-				
+			if(array2[j]<=start)
+			{
+				i++;
+				long tem=array2[i];
+				array2[i]=array2[j];
+				array2[j]=tem;
+			}
+			j++;
 		}
-		array2[low]=start;
-		return low;
+		long tem=array2[i+1];
+		array2[i+1]=array2[high];
+		array2[high]=tem;
+		return i+1;
 	}
 	void qsort(int low,int high)
 	{
 		if(low<high)
 		{
+			if(high-low<50)
+			{
+				long t[]=null;
+				long tt[]=new long[high-low+1];
+				Insertion tmp=new Insertion();
+				for(int i=0;i<high-low+1;i++)
+					tt[i]=array2[i+low];
+				t=tmp.sort(tt);
+				for(int i=0;i<high-low+1;i++)
+					array2[low+i]=t[i];
+			}
 			int medium=partition(low,high);
 			qsort(low,medium-1);
 			qsort(medium+1,high);
